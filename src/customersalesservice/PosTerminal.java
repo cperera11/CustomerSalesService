@@ -18,17 +18,16 @@ public class PosTerminal {
   
   
     public final void startSale(PosTerminal pos, String custId) {
-        System.out.println(receipt.findCustomerName(custId).getName());
+      //  System.out.println(receipt.findCustomerName(custId).getName());
     }
 
     public final void addItemToSale(String productID, String quantity,Discount dis) {
       // receipt.getLineItemsHeading();
-      
-        System.out.println(receipt.getLineItems(productID, quantity, dis));
+      //System.out.println(receipt.getLineItems(productID, quantity, dis));
     }
 
     public final void endSale() {
-        System.out.println(receipt.getLineItemsHeading());
+      //  System.out.println(receipt.getLineItemsHeading());
     }
     
     

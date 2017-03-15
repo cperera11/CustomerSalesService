@@ -13,11 +13,16 @@ public class LineItem {
     private double quantity;
     private Product product =  new Product();
 
-    public LineItem(String ProdId, String quantity, DataAccessStrategy db) {
+    public LineItem(String ProdId, String quantity, DataAccessStrategy db, Discount discount) {
         setQuantity(quantity);
         product = findProduct(ProdId, db);
+        getDiscountAmount(product.getRetailPrice(), quantity, discount);
     }
   
+    public final double getDiscountAmount(double productRetailprice, String qty, Discount discount){
+        return product.getDiscountAmount(productRetailprice, qty, discount);
+    }
+    
      public final Product findProduct(String ProdId, DataAccessStrategy db) {
         return db.findProduct(ProdId);
     }
@@ -41,22 +46,20 @@ public class LineItem {
     }
   
     
-    public final double calculateSubTotal(String quantity){
-        setQuantity(quantity);
+    public final double calculateSubTotal(){
+       
         return (product.getRetailPrice() * getQuantity());
     }
     
-    public final String generateLineItem(String quantity,Discount discount){
-       
-        setQuantity(quantity);
+    public final String generateLineItem(){
         
         String line = "";
         line += product.getProductID() + "\t";
         line += product.getProductName() + "\t";
         line += product.getRetailPrice() + "\t";
         line += getQuantity() + "\t";
-        line += calculateSubTotal(quantity) + "\t";
-        line += discount.getDiscount(product.getRetailPrice(),getQuantity()) + "\n";
+        line += calculateSubTotal() + "\t";
+        line += product.getDiscountAmount(product.getRetailPrice(),getQuantity(),product.getDiscount()) + "\n";
         
         return line;
     }

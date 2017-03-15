@@ -11,6 +11,7 @@ package customersalesservice;
  */
 public class Startup {
     public static void main(String[] args) {
+        
         DataAccessStrategy db = new InMemoryDataAccess();
         Discount dis = new PercentDiscount();
         Receipt receipt = new JOptionPaneReceipt("300",db);

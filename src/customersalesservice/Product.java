@@ -65,7 +65,11 @@ public class Product {
         this.retailPrice = rlp;
         }
     }
-
+    public final double getDiscountAmount(double productRetailprice, String qty, Discount discount){
+        setDiscount(discount);
+        return discount.getDiscount(0, 0);
+    }
+    
     public final Discount getDiscount() {
         return discount;
     }

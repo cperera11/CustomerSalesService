@@ -14,9 +14,9 @@ public interface Receipt {
             
     public abstract String getLineItemsHeading();
             
-    public abstract String getLineItems(String retailPrice, String quantity, Discount discount);
+    public abstract String getLineItems();
             
-    public abstract  void addLineItem(String ProdId, String quantity, DataAccessStrategy db);
+    public abstract  void addLineItem(String ProdId, String quantity, DataAccessStrategy db, Discount discount);
 
-    
+    public abstract void addToArray(final LineItem item);
 }

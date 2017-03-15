@@ -13,7 +13,7 @@ public class JOptionPaneReceipt implements Receipt {
     private DataAccessStrategy db; 
     private Customer customer;
     private String receiptId;
-    private LineItem[] lineItems;
+    private LineItem[] lineItems = new LineItem[0];
     
     public JOptionPaneReceipt(String customerId, DataAccessStrategy db) {
         this.db = db;
@@ -34,20 +34,22 @@ public class JOptionPaneReceipt implements Receipt {
     public final String getLineItems(){
          String data = "";
          for(LineItem item : lineItems){
-         data += item.
+         data += item;
          }
         
-        return ; 
+        return data ; 
     }
     
     @Override
-    public final void addLineItem(String ProdId, String quantity, DataAccessStrategy db){
-    LineItem Item = new LineItem(ProdId, quantity, db);
+    public final void addLineItem(String ProdId, String quantity, DataAccessStrategy db, Discount discount){
+    LineItem Item = new LineItem(ProdId, quantity, db,discount);
     addToArray(Item);
     }
     
-    private void addToArray(final LineItem item) {
-        // needs validation
+    public final void addToArray(final LineItem item) {
+        if(item == null){
+        throw new IllegalArgumentException();
+        }
         LineItem[] tempItems = new LineItem[lineItems.length + 1];
         System.arraycopy(lineItems, 0, tempItems, 0, lineItems.length);
         tempItems[lineItems.length] = item;
