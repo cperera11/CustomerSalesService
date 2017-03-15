@@ -12,22 +12,19 @@ package customersalesservice;
 public class PosTerminal {
   private Receipt receipt;
 
-    public PosTerminal(Receipt receipt) {
+     
+    public final void startSale(String custId, Receipt receipt) {
         this.receipt = receipt;
-    }
-  
-  
-    public final void startSale(PosTerminal pos, String custId) {
-      //  System.out.println(receipt.findCustomerName(custId).getName());
+        receipt.findCustomerName(custId);
     }
 
-    public final void addItemToSale(String productID, String quantity,Discount dis) {
-      // receipt.getLineItemsHeading();
-      //System.out.println(receipt.getLineItems(productID, quantity, dis));
+    public final void addItemToSale(String productID, double quantity,DataAccessStrategy db,Discount dis) {
+      
+        receipt.addLineItem(productID, quantity, db);
     }
 
     public final void endSale() {
-      //  System.out.println(receipt.getLineItemsHeading());
+      // print receipt
     }
     
     

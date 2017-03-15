@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package customersalesservice;
 
 /**
@@ -13,16 +8,15 @@ public class LineItem {
     private double quantity;
     private Product product =  new Product();
 
-    public LineItem(String ProdId, String quantity, DataAccessStrategy db, Discount discount) {
+    public LineItem(String ProdId, double quantity, DataAccessStrategy db) {
         setQuantity(quantity);
         product = findProduct(ProdId, db);
-        getDiscountAmount(product.getRetailPrice(), quantity, discount);
+        
+    }
+
+    public LineItem() {
     }
   
-    public final double getDiscountAmount(double productRetailprice, String qty, Discount discount){
-        return product.getDiscountAmount(productRetailprice, qty, discount);
-    }
-    
      public final Product findProduct(String ProdId, DataAccessStrategy db) {
         return db.findProduct(ProdId);
     }
@@ -30,19 +24,11 @@ public class LineItem {
         return quantity;
     }
 
-    public final void setQuantity(String quantity) {
-        double qty;
-        if(quantity == null || quantity.isEmpty() ) {
-        throw new IllegalArgumentException();
-        }else{
-            try {
-            qty = Double.parseDouble(quantity);
-            }
-            catch(NumberFormatException nfe){
-            throw new NumberFormatException();
-            }
-            this.quantity = qty;
+    public final void setQuantity(double quantity) {
+        if(quantity < 1 || quantity > 10 ) {
+            throw new IllegalArgumentException();
         }
+        this.quantity = quantity;
     }
   
     
@@ -59,7 +45,7 @@ public class LineItem {
         line += product.getRetailPrice() + "\t";
         line += getQuantity() + "\t";
         line += calculateSubTotal() + "\t";
-        line += product.getDiscountAmount(product.getRetailPrice(),getQuantity(),product.getDiscount()) + "\n";
+        line += product.getDiscount().getDiscount(product.getRetailPrice(), quantity) + "\n";
         
         return line;
     }
@@ -75,5 +61,39 @@ public class LineItem {
         line += "Discount" + "\n";
         
         return line;
+                    
+    }
+    
+    public final String generateLineItemFooter(){
+    
+        String line = "";
+        line += "Net Total: " + getTotalSaved();
+        line += "Total Saved: " + getTotalDue();
+        line += "Total Due: " + getTotalDue();
+        
+        return line;
+    
+    }
+    
+    public final double getNetTotal(){
+    
+        double temp = 0.00;
+        
+        return temp;
+    
+    }
+    public final double getTotalSaved(){
+    
+        double temp = 0.00;
+        
+        return temp;
+    
+    }
+    public final double getTotalDue(){
+    
+        double temp = 0.00;
+        
+        return temp;
+    
     }
 }

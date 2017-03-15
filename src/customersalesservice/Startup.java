@@ -13,15 +13,15 @@ public class Startup {
     public static void main(String[] args) {
         
         DataAccessStrategy db = new InMemoryDataAccess();
-        Discount dis = new PercentDiscount();
-        Receipt receipt = new JOptionPaneReceipt("300",db);
-        PosTerminal pos = new PosTerminal(receipt); 
-        
-        receipt.addLineItem("300", "2", db);
-        pos.startSale(pos,"300");
-         pos.endSale();
 
-       pos.addItemToSale("A111","3",dis);
+        Receipt receipt = new Receipt("300",db);
+        PosTerminal pos = new PosTerminal(); 
+        
+        pos.startSale("100", receipt);
+        pos.addItemToSale("A111", 2, db);
+        pos.endSale();
+
+       
        
 
     }

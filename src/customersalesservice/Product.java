@@ -15,11 +15,12 @@ public class Product {
     private Double retailPrice;
     private Discount discount;
 
-    public Product(String productID, String productName, String retailPrice) {
+    public Product(String productID, String productName, double retailPrice,Discount discount ) {
         
         setProductID(productID);
         setProductName(productName);
         setRetailPrice(retailPrice);
+        setDiscount(discount);
     }
 
     public Product() {
@@ -47,29 +48,18 @@ public class Product {
         this.productName = productName;
     }
 
-    public final Double getRetailPrice() {
+    public final double getRetailPrice() {
         return retailPrice;
     }
 
-    public final void setRetailPrice(String retailPrice) {
-        double rlp;
-        if(retailPrice == null || retailPrice.isEmpty() ) {
-        throw new IllegalArgumentException();
-        }else{
-            try {
-            rlp = Double.parseDouble(retailPrice);
-            }
-            catch(NumberFormatException nfe){
-            throw new NumberFormatException();
-            }
-        this.retailPrice = rlp;
+    public final void setRetailPrice(double retailPrice) {
+        
+         if(retailPrice < 1 || retailPrice > 1000 ) {
+            throw new IllegalArgumentException();
         }
-    }
-    public final double getDiscountAmount(double productRetailprice, String qty, Discount discount){
-        setDiscount(discount);
-        return discount.getDiscount(0, 0);
-    }
-    
+        this.retailPrice = retailPrice;
+        }
+       
     public final Discount getDiscount() {
         return discount;
     }

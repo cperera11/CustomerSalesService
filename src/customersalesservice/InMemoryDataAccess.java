@@ -16,8 +16,7 @@ public class InMemoryDataAccess implements DataAccessStrategy {
     // find a customer
    @Override
     public final Customer findCustomer(final String custId) {
-        // validation is needed for method parameter
-        if(custId == null || custId.isEmpty() ){
+       if(custId == null || custId.isEmpty() ){
         throw new IllegalArgumentException();
         }
         
