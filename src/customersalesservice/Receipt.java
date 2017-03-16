@@ -15,10 +15,14 @@ public class Receipt {
     private Customer customer;
     private String receiptId;
     private LineItem[] lineItems = new LineItem[0];
+    private ReceiptOutPutStrategy jReceiptOutPut;
+    private ReceiptOutPutStrategy cReceiptOutPut;
 
     public Receipt(String customerId, DataAccessStrategy db) {
         this.db = db;
         customer = findCustomerName(customerId);
+        ReceiptOutPutStrategy jReceiptOutPut = new JOptionPaneOutput();
+        ReceiptOutPutStrategy cReceiptOutPut = new ConsoleOutput();
     }
 // adding line items to the line item array
     public final void addLineItem(String ProdId, double quantity, DataAccessStrategy db) {
@@ -96,6 +100,7 @@ public class Receipt {
     }
 
     public void outputReceipt() {
-        System.out.println(getReceiptData());
+       jReceiptOutPut.outputReceipt(getReceiptData());
+       
     }
 }
