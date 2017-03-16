@@ -35,9 +35,7 @@ public class Customer {
     }
 
     public final void setCustomerId(String customerId) {
-        if(customerId == null || customerId.isEmpty()){
-        throw new IllegalArgumentException();
-        }
+       // cannot validate because the sale should be started even without the customer ID
         this.customerId = customerId;
     }
    

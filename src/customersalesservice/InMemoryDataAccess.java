@@ -17,7 +17,7 @@ public class InMemoryDataAccess implements DataAccessStrategy {
    @Override
     public final Customer findCustomer(final String custId) {
        if(custId == null || custId.isEmpty() ){
-        throw new IllegalArgumentException();
+        Customer customer = null;
         }
         
         Customer customer = null;
