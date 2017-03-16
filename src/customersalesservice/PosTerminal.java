@@ -18,13 +18,13 @@ public class PosTerminal {
         receipt.findCustomerName(custId);
     }
 
-    public final void addItemToSale(String productID, double quantity,DataAccessStrategy db,Discount dis) {
+    public final void addItemToSale(String productID, double quantity,DataAccessStrategy db) {
       
         receipt.addLineItem(productID, quantity, db);
     }
 
     public final void endSale() {
-      // print receipt
+      receipt.outputReceipt();
     }
     
     

@@ -6,7 +6,7 @@ package customersalesservice;
  */
 public class LineItem {
     private double quantity;
-    private Product product =  new Product();
+    private Product product;
 
     public LineItem(String ProdId, double quantity, DataAccessStrategy db) {
         setQuantity(quantity);
@@ -14,10 +14,7 @@ public class LineItem {
         
     }
 
-    public LineItem() {
-    }
-  
-     public final Product findProduct(String ProdId, DataAccessStrategy db) {
+    public final Product findProduct(String ProdId, DataAccessStrategy db) {
         return db.findProduct(ProdId);
     }
     public final double getQuantity() {
@@ -33,10 +30,13 @@ public class LineItem {
   
     
     public final double calculateSubTotal(){
-       
         return (product.getRetailPrice() * getQuantity());
     }
     
+     public final double calculateDiscount(){
+        return (product.getDiscount().getDiscount(product.getRetailPrice(), quantity));
+    }
+     
     public final String generateLineItem(){
         
         String line = "";
@@ -45,7 +45,7 @@ public class LineItem {
         line += product.getRetailPrice() + "\t";
         line += getQuantity() + "\t";
         line += calculateSubTotal() + "\t";
-        line += product.getDiscount().getDiscount(product.getRetailPrice(), quantity) + "\n";
+        line += calculateDiscount() + "\n";
         
         return line;
     }
@@ -64,36 +64,5 @@ public class LineItem {
                     
     }
     
-    public final String generateLineItemFooter(){
-    
-        String line = "";
-        line += "Net Total: " + getTotalSaved();
-        line += "Total Saved: " + getTotalDue();
-        line += "Total Due: " + getTotalDue();
-        
-        return line;
-    
-    }
-    
-    public final double getNetTotal(){
-    
-        double temp = 0.00;
-        
-        return temp;
-    
-    }
-    public final double getTotalSaved(){
-    
-        double temp = 0.00;
-        
-        return temp;
-    
-    }
-    public final double getTotalDue(){
-    
-        double temp = 0.00;
-        
-        return temp;
-    
-    }
+
 }

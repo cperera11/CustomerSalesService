@@ -17,8 +17,8 @@ public class Startup {
         Receipt receipt = new Receipt("300",db);
         PosTerminal pos = new PosTerminal(); 
         
-        pos.startSale("100", receipt);
-        pos.addItemToSale("A111", 2, db);
+        pos.startSale("300", receipt);
+        pos.addItemToSale("A101", 2, db);
         pos.endSale();
 
        
