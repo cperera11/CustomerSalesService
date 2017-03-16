@@ -11,13 +11,7 @@ package customersalesservice;
  */
 public class ConsoleOutput implements ReceiptOutPutStrategy {
 
-   
-    public ConsoleOutput() {
-        
-    }
-    
-    
-    
+       
     @Override
     public void outputReceipt(String receiptData) {
         System.out.println(receiptData);
