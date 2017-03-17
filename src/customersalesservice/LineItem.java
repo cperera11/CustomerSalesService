@@ -38,31 +38,20 @@ public class LineItem {
     }
      
     public final String generateLineItem(){
-        
-        String line = "";
-        line += product.getProductID() + "\t";
-        line += product.getProductName() + "\t";
-        line += product.getRetailPrice() + "\t";
-        line += getQuantity() + "\t";
-        line += calculateSubTotal() + "\t";
-        line += calculateDiscount() + "\n";
-        
+           
+        String line = String.format("%5s %20s  %10s %15s %15s %20s\n" , product.getProductID(), product.getProductName(),
+                                        String.format("%.2f",product.getRetailPrice()),getQuantity(),
+                                        String.format("%.2f",calculateSubTotal()), String.format("%.2f",calculateDiscount()));
         return line;
+        
     }
-    
+  
     public final String generateLineItemHeading(){
-        
-        String line = "";
-        line += "ID" + "\t";
-        line += "Item" + "\t";
-        line += "Price" + "\t";
-        line += "Quantity" + "\t";
-        line += "Sub Total" + "\t";
-        line += "Discount" + "\n";
-        
+    
+        String line = String.format("%5s %15s  %25s %15s %15s %15s\n" , "ID", "Item", "Price","Quantity","Sub Total", "Discount");
         return line;
                     
     }
-    
+
 
 }

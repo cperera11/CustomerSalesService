@@ -14,18 +14,21 @@ public class Startup {
         
         DataAccessStrategy db = new InMemoryDataAccess();
 
-        Receipt receipt = new Receipt("0",db);
+       
         PosTerminal pos = new PosTerminal(); 
+        ReceiptOutPutStrategy jReceiptOutPut  = new JOptionPaneOutput();
+        ReceiptOutPutStrategy cReceiptOutPut = new ConsoleOutput();
         
-//        pos.startSale("300", receipt);
-//        pos.addItemToSale("A101", 2, db);
-//        pos.addItemToSale("C222", 3, db);
-//        pos.endSale();
+        pos.startSale("",db);
+        pos.addItemToSale("A101", 2, db);
+        pos.addItemToSale("C222", 3, db);
+        pos.endSale(jReceiptOutPut,cReceiptOutPut );
 
-        pos.startSale("0", receipt);
-        pos.addItemToSale("D333", 1, db);
-        pos.addItemToSale("B205", 2, db);
-        pos.endSale();
+
+//        pos.startSale("");
+//        pos.addItemToSale("D333", 1, db);
+//        pos.addItemToSale("B205", 2, db);
+//        pos.endSale(jReceiptOutPut,cReceiptOutPut );
        
 
     }

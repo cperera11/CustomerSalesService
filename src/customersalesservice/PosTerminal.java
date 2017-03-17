@@ -11,10 +11,10 @@ package customersalesservice;
  */
 public class PosTerminal {
   private Receipt receipt;
-
      
-    public final void startSale(String custId, Receipt receipt) {
-        this.receipt = receipt;
+           
+    public final void startSale(String custId, DataAccessStrategy db) {
+        this.receipt = new Receipt(custId, db);
         receipt.findCustomerName(custId);
     }
 
@@ -23,9 +23,8 @@ public class PosTerminal {
         receipt.addLineItem(productID, quantity, db);
     }
 
-    public final void endSale() {
-      receipt.outputReceipt();
+    public final void endSale(ReceiptOutPutStrategy firstOutPut, ReceiptOutPutStrategy secondOutPut) {
+      receipt.outputReceipt(firstOutPut,secondOutPut );
     }
-    
-    
+  
 }

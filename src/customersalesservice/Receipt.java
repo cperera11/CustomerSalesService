@@ -15,12 +15,14 @@ public class Receipt {
     private Customer customer;
     private String receiptId;
     private LineItem[] lineItems = new LineItem[0];
-//    private ReceiptOutPutStrategy jReceiptOutPut;
-//    private ReceiptOutPutStrategy cReceiptOutPut;
+    private ReceiptOutPutStrategy receiptOutPut;
+    //private GreetingGenerator greeting;
+  
 
     public Receipt(String customerId, DataAccessStrategy db) {
         this.db = db;
         customer = findCustomerName(customerId);
+//        GreetingGenerator greeting = new GreetingGenerator();
         
     }
 // adding line items to the line item array
@@ -44,16 +46,20 @@ public class Receipt {
     
     public final String getReceiptData() {
         String data = "";
-//      data += greeting
-//      data += date time
-        data += "Sold to: "+ customer.getName() + "\n";
+       // data += generateGreeting();
+        data += "Sold to: "+ (customer == null ? "": customer.getName() ) + "\n";
         data += getLineItemsHeading();
-        data += "-------------------------------" + "\n";
+        data += "-----------------------------------------------------------------------------" + "\n";
         data += getLineItems();
         data += generateLineItemTotalingArea();
         return data;
     }
 // helper methods for getReceiptData()    
+    
+//    public final String generateGreeting() {
+//        return greeting.generateGreeting("Welcome to Kohls!") ;
+//    }
+    
     public final Customer findCustomerName(String custId) {
         return db.findCustomer(custId);
     }
@@ -71,10 +77,10 @@ public class Receipt {
     }
     
     public final String generateLineItemTotalingArea() {
-        String line = "";
-        line += "Net Total: " + getNetTotal()+ "\n";
-        line += "Total Saved: " + getTotalSaved()+ "\n";
-        line += "Total Due: " + getTotalDue();
+        String line = String.format("%-1s %23s\n %1s %20s\n %1s %22s\n","Net Total: ", String.format("%.2f",getNetTotal()),
+                                    "Total Saved: ", String.format("%.2f",getTotalSaved()), "Total Due: ", 
+                                    String.format("%.2f",getTotalDue()));
+
         return line;
 
     }
@@ -98,11 +104,10 @@ public class Receipt {
 
     }
 
-    public void outputReceipt() {
-        ReceiptOutPutStrategy jReceiptOutPut = new JOptionPaneOutput();
-        jReceiptOutPut.outputReceipt(getReceiptData());
-        ReceiptOutPutStrategy cReceiptOutPut = new ConsoleOutput();
-        cReceiptOutPut.outputReceipt(getReceiptData());
-       
+    public final void outputReceipt(ReceiptOutPutStrategy firstOutPut, ReceiptOutPutStrategy secondOutPut) {
+        
+        firstOutPut.outputReceipt(getReceiptData());
+        secondOutPut.outputReceipt(getReceiptData());
+   
     }
 }
