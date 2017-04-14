@@ -14,6 +14,9 @@ public class PercentDiscount implements Discount {
     private double percentOff;
 
     public PercentDiscount(double percentOff) {
+        if(percentOff < 0){
+            throw new IllegalArgumentException("percentOff cannot be null");        
+        }
         this.percentOff = percentOff;
     }
 
@@ -23,5 +26,7 @@ public class PercentDiscount implements Discount {
     public double getDiscount(double productRetailprice, double qty) {
 
         return productRetailprice * qty * percentOff;
+        
+        
     }
 }

@@ -13,6 +13,11 @@ public class Customer {
    private String name;
    private String customerId;
 
+    public Customer() {
+    }
+   
+   
+
     public Customer(String customerId, String name) {
         setCustomerId(customerId);
         setName(name);
@@ -35,7 +40,9 @@ public class Customer {
     }
 
     public final void setCustomerId(String customerId) {
-       // cannot validate because the sale should be started even without the customer ID
+        if(customerId== null || customerId.isEmpty()){
+        throw new IllegalArgumentException();
+        }
         this.customerId = customerId;
     }
    

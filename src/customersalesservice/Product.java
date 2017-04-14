@@ -66,7 +66,7 @@ public class Product {
 
     public final void setDiscount(Discount discount) {
         if(discount == null){
-        throw new IllegalArgumentException();
+        throw new NullPointerException();
         }
         this.discount = discount;
     }

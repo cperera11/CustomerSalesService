@@ -13,9 +13,16 @@ public class PosTerminal {
   private Receipt receipt;
      
            
-    public final void startSale(String custId, DataAccessStrategy db) {
-        this.receipt = new Receipt(custId, db);
+    public final void startSale(String custId, DataAccessStrategy db, GreetingGenerator greeting) throws MandatoryStringException {
+        if(db == null){
+        throw new MandatoryStringException("Data Access Strategy is mandatory");
+        }
+        if(greeting == null){
+        throw new MandatoryStringException("Greeting Generator is mandatory");
+        }
+        this.receipt = new Receipt(custId, db,greeting);
         receipt.findCustomerName(custId);
+        
     }
 
     public final void addItemToSale(String productID, double quantity,DataAccessStrategy db) {

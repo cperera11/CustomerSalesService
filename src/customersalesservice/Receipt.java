@@ -16,13 +16,14 @@ public class Receipt {
     private String receiptId;
     private LineItem[] lineItems = new LineItem[0];
     private ReceiptOutPutStrategy receiptOutPut;
-    //private GreetingGenerator greeting;
+    private GreetingGenerator greeting;
   
 
-    public Receipt(String customerId, DataAccessStrategy db) {
+    public Receipt(String customerId, DataAccessStrategy db, GreetingGenerator greeting) {
         this.db = db;
+        this.greeting = greeting;
         customer = findCustomerName(customerId);
-//        GreetingGenerator greeting = new GreetingGenerator();
+
         
     }
 // adding line items to the line item array
@@ -34,7 +35,7 @@ public class Receipt {
  // expaning the size of line item array index by index as it adds items   
     public final void addToArray(final LineItem item) {
         if (item == null) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("line item is mandatory");
         }
         LineItem[] tempItems = new LineItem[lineItems.length + 1];
         System.arraycopy(lineItems, 0, tempItems, 0, lineItems.length);
@@ -44,21 +45,26 @@ public class Receipt {
     }
     
     
-    public final String getReceiptData() {
+    public final String getReceiptData() { // need to be formatted
         String data = "";
        // data += generateGreeting();
         data += "Sold to: "+ (customer == null ? "": customer.getName() ) + "\n";
         data += getLineItemsHeading();
-        data += "-----------------------------------------------------------------------------" + "\n";
+        data += "--------------------------------------------------------------------------------------------" + "\n";
         data += getLineItems();
         data += generateLineItemTotalingArea();
         return data;
+        
+//         String line = String.format("%5s\ %5s\n  %5s\n %5s\n %5s\n" , "Sold to: ", "Item", "Price","Quantity","Sub Total", "Discount");
+//        return line;
     }
+    
 // helper methods for getReceiptData()    
     
-//    public final String generateGreeting() {
-//        return greeting.generateGreeting("Welcome to Kohls!") ;
-//    }
+    public final String generateGreeting(String greet) {
+        return (greeting.generateGreeting(greet)) ;
+    }
+    
     
     public final Customer findCustomerName(String custId) {
         return db.findCustomer(custId);

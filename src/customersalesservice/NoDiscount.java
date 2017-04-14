@@ -15,6 +15,7 @@ public class NoDiscount implements Discount {
     @Override
     public double getDiscount(double productRetailprice, double qty) {
         double discount = 0.00;
+        
         return discount;
     }
 }
